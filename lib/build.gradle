@@ -1,0 +1,24 @@
+plugins {
+	id 'java'
+}
+
+repositories {
+	mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+	implementation group: 'commons-codec', name: 'commons-codec', version: '1.15'
+
+}
+
+task fatJar(type: Jar) {
+	manifest {
+		attributes 'Main-Class': 'in.nareshit.raghu.TestMain'
+	}
+	baseName = 'all-in-one-jar'
+	from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+	with jar
+}
